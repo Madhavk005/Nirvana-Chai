@@ -46,35 +46,30 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
 ## 🚀 Installation
 
 ### Prerequisites
-
 - Node.js (v18 or higher)
 - npm or yarn
 
 ### Setup
 
 1. **Clone the repository**
-
    ```bash
    git clone https://github.com/Madhavk005/Nirvana-Chai.git
    cd nirvana-chai
    ```
 
 2. **Install dependencies**
-
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
    Create a `.env` file in the root directory:
-
    ```env
    EMAIL_PASS=your_email_password
    # Add other environment variables as needed
    ```
 
 4. **Development**
-
    ```bash
    # Start development server
    npm run dev
@@ -87,6 +82,38 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
    ```bash
    npm run build
    ```
+
+## 🌐 Deployment
+
+### GitHub Pages (Recommended for Frontend)
+
+The project is configured for easy deployment to GitHub Pages:
+
+1. **Enable GitHub Pages** in your repository settings:
+   - Go to Settings → Pages
+   - Select "Deploy from a branch"
+   - Choose `gh-pages` branch (will be created automatically)
+
+2. **Deploy to GitHub Pages**
+   ```bash
+   npm run deploy
+   ```
+
+3. **Access your site** at: `https://[username].github.io/Nirvana-Chai/`
+
+### Netlify (Alternative)
+
+1. Connect your GitHub repository to Netlify
+2. Set build command: `npm run build:client`
+3. Set publish directory: `dist/spa`
+4. Add environment variables in Netlify dashboard
+
+### Manual Deployment
+
+```bash
+npm run build:client
+# Serve the dist/spa directory with any static server
+```
 
 ## 📖 Usage
 
