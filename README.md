@@ -20,6 +20,7 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 18** - Modern React with hooks and concurrent features
 - **TypeScript** - Type-safe development
 - **Vite** - Fast build tool and development server
@@ -30,11 +31,13 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
 - **Framer Motion** - Smooth animations and transitions
 
 ### Backend
+
 - **Express.js** - Fast, unopinionated web framework
 - **Node.js** - JavaScript runtime
 - **TypeScript** - Server-side type safety
 
 ### Development & Testing
+
 - **Vitest** - Fast unit testing framework
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
@@ -43,30 +46,35 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
 ## 🚀 Installation
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 
 ### Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Madhavk005/Nirvana-Chai.git
    cd nirvana-chai
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
    Create a `.env` file in the root directory:
+
    ```env
    EMAIL_PASS=your_email_password
    # Add other environment variables as needed
    ```
 
 4. **Development**
+
    ```bash
    # Start development server
    npm run dev
@@ -83,19 +91,24 @@ A premium e-commerce website for luxury teas, offering the world's rarest and mo
 ## 📖 Usage
 
 ### Development Server
+
 ```bash
 npm run dev
 ```
+
 Access the application at `http://localhost:5173`
 
 ### Production Server
+
 ```bash
 npm run build
 npm run start
 ```
+
 Access the application at `http://localhost:3000`
 
 ### Available Scripts
+
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
@@ -109,11 +122,13 @@ Access the application at `http://localhost:3000`
 The backend provides the following API endpoints:
 
 ### Health & Demo
+
 - `GET /health` - Health check endpoint
 - `GET /api/ping` - Simple ping response
 - `GET /api/demo` - Demo message from server
 
 ### Forms
+
 - `POST /api/forms/newsletter` - Newsletter subscription
 - `POST /api/forms/contact` - Contact form submission
 - `POST /api/forms/order` - Order placement
@@ -123,6 +138,7 @@ The backend provides the following API endpoints:
 ### Request Examples
 
 **Newsletter Subscription:**
+
 ```bash
 curl -X POST http://localhost:3000/api/forms/newsletter \
   -H "Content-Type: application/json" \
@@ -130,6 +146,7 @@ curl -X POST http://localhost:3000/api/forms/newsletter \
 ```
 
 **Order Placement:**
+
 ```bash
 curl -X POST http://localhost:3000/api/forms/order \
   -H "Content-Type: application/json" \
@@ -174,12 +191,14 @@ nirvana-chai/
 ## 🌐 Deployment
 
 ### Netlify (Recommended)
+
 1. Connect your GitHub repository to Netlify
 2. Set build command: `npm run build`
 3. Set publish directory: `dist/spa`
 4. Add environment variables in Netlify dashboard
 
 ### Manual Deployment
+
 ```bash
 npm run build
 # Serve the dist/ directory with any static server
@@ -196,6 +215,7 @@ We welcome contributions! Please follow these steps:
 5. Open a Pull Request
 
 ### Development Guidelines
+
 - Follow the existing code style
 - Write tests for new features
 - Update documentation as needed
@@ -220,4 +240,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-*Experience the world's finest teas, one sip at a time.* 🍵
+_Experience the world's finest teas, one sip at a time._ 🍵
