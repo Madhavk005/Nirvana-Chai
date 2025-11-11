@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ShoppingCart,
   Search,
@@ -24,7 +24,10 @@ export function Layout({ children }: LayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     currentLanguage,
     languages,
@@ -38,6 +41,7 @@ export function Layout({ children }: LayoutProps) {
 
   const languageRef = useRef<HTMLDivElement>(null);
   const currencyRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -54,6 +58,12 @@ export function Layout({ children }: LayoutProps) {
       ) {
         setIsCurrencyOpen(false);
       }
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setIsSearchOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -66,6 +76,15 @@ export function Layout({ children }: LayoutProps) {
     { name: t("nav.about", "About"), href: "/about" },
     { name: t("nav.contact", "Contact"), href: "/contact" },
   ];
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(searchTerm.trim())}`);
+      setIsSearchOpen(false);
+      setSearchTerm("");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
@@ -207,9 +226,50 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Right Actions */}
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
-              <button className="p-2 hover:bg-sage-50/80 rounded-lg transition-all duration-300 hover:scale-105 shadow-sm text-sage-700 cursor-pointer backdrop-blur-sm sm:p-2.5">
-                <Search className="h-4 w-4 lg:h-5 lg:w-5" />
-              </button>
+              {/* Search */}
+              <div className="relative" ref={searchRef}>
+                <button
+                  onClick={() => setIsSearchOpen(!isSearchOpen)}
+                  className="p-2 hover:bg-sage-50/80 rounded-lg transition-all duration-300 hover:scale-105 shadow-sm text-sage-700 cursor-pointer backdrop-blur-sm sm:p-2.5"
+                >
+                  <Search className="h-4 w-4 lg:h-5 lg:w-5" />
+                </button>
+                {isSearchOpen && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white/95 border border-sage-300 rounded-xl shadow-luxury-lg z-50 p-4 backdrop-blur-sm">
+                    <form onSubmit={handleSearchSubmit}>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-sage-400" />
+                        <input
+                          type="text"
+                          placeholder={
+                            currentLanguage.code === "ru"
+                              ? "Поиск чая..."
+                              : currentLanguage.code === "kz"
+                                ? "Шай іздеу..."
+                                : "Search teas..."
+                          }
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-full pl-10 pr-4 py-3 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent text-sm"
+                          autoFocus
+                        />
+                      </div>
+                      <div className="mt-3 flex justify-end">
+                        <button
+                          type="submit"
+                          className="bg-sage-600 hover:bg-sage-700 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium"
+                        >
+                          {currentLanguage.code === "ru"
+                            ? "Поиск"
+                            : currentLanguage.code === "kz"
+                              ? "Іздеу"
+                              : "Search"}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+              </div>
               <Link
                 to="/account"
                 className="p-2 hover:bg-sage-50/80 rounded-lg transition-all duration-300 hover:scale-105 shadow-sm text-sage-700 cursor-pointer backdrop-blur-sm sm:p-2.5"

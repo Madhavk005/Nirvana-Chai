@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Search,
@@ -25,6 +25,7 @@ import { OptimizedImage } from "../components/OptimizedImage";
 
 export default function Shop() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
   const { formatPrice, currentCurrency, currentLanguage } =
     useLanguageCurrency();
@@ -53,6 +54,14 @@ export default function Shop() {
     { id: "premium", name: "Premium", nameRu: "Премиум", nameKz: "Премиум" },
     { id: "luxury", name: "Luxury", nameRu: "Люкс", nameKz: "Люкс" },
   ];
+
+  // Initialize search term from URL params
+  useEffect(() => {
+    const searchParam = searchParams.get("search");
+    if (searchParam) {
+      setSearchTerm(searchParam);
+    }
+  }, [searchParams]);
 
   // Build products from TEA_PRODUCTS dataset with memoization
   const products = useMemo(() => {
