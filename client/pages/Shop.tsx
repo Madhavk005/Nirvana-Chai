@@ -22,6 +22,7 @@ import { CurrencyUtility } from "../utils/currency";
 import { TEA_PRODUCTS } from "../data/teaProducts";
 import { ProductGridSkeleton } from "../components/SkeletonLoader";
 import { OptimizedImage } from "../components/OptimizedImage";
+import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
 
 export default function Shop() {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
   const [showFilters, setShowFilters] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<any>(null);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   // Initialize search term from URL params
   useEffect(() => {
@@ -189,6 +192,16 @@ export default function Shop() {
       addToWishlist(product.id);
       showToast.addToWishlist(product.name);
     }
+  };
+
+  const handleQuickView = (product: any) => {
+    setQuickViewProduct(product);
+    setIsQuickViewOpen(true);
+  };
+
+  const closeQuickView = () => {
+    setIsQuickViewOpen(false);
+    setQuickViewProduct(null);
   };
 
   const getLocalizedName = (item: any) => {
@@ -474,10 +487,17 @@ export default function Shop() {
                       {/* Overlay Actions */}
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center gap-2 opacity-0 hover:opacity-100">
                         <motion.button
-                          onClick={() => navigate(`/product/${product.id}`)}
+                          onClick={() => handleQuickView(product)}
                           className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
+                          title={
+                            currentLanguage.code === "ru"
+                              ? "Быстрый просмотр"
+                              : currentLanguage.code === "kz"
+                                ? "Жылдам қарау"
+                                : "Quick View"
+                          }
                         >
                           <Eye className="h-4 w-4 text-gray-700" />
                         </motion.button>
@@ -637,6 +657,13 @@ export default function Shop() {
           </div>
         </div>
       </div>
+
+      {/* Quick View Modal */}
+      <ProductQuickViewModal
+        product={quickViewProduct}
+        isOpen={isQuickViewOpen}
+        onClose={closeQuickView}
+      />
     </div>
   );
 }
