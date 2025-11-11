@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface OptimizedImageProps {
   src: string;
@@ -7,6 +7,7 @@ interface OptimizedImageProps {
   fallback?: string;
   placeholder?: React.ReactNode;
   aspectRatio?: "square" | "portrait" | "landscape" | "wide";
+  priority?: boolean;
 }
 
 export function OptimizedImage({
@@ -16,9 +17,32 @@ export function OptimizedImage({
   fallback,
   placeholder,
   aspectRatio = "landscape",
+  priority = false,
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isInView, setIsInView] = useState(priority);
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (priority) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [priority]);
 
   const aspectRatioClasses = {
     square: "aspect-square",
@@ -54,25 +78,31 @@ export function OptimizedImage({
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div
+      ref={imgRef}
+      className={`relative overflow-hidden ${className}`}
+    >
       {isLoading && (
         <div className="absolute inset-0 z-10">
           {placeholder || defaultPlaceholder}
         </div>
       )}
-      <img
-        src={src}
-        alt={alt}
-        className={`w-full h-full object-cover transition-opacity duration-500 ${
-          isLoading ? "opacity-0" : "opacity-100"
-        }`}
-        onLoad={() => setIsLoading(false)}
-        onError={() => {
-          setIsLoading(false);
-          setHasError(true);
-        }}
-        loading="lazy"
-      />
+      {isInView && (
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            isLoading ? "opacity-0 scale-105" : "opacity-100 scale-100"
+          }`}
+          onLoad={() => setIsLoading(false)}
+          onError={() => {
+            setIsLoading(false);
+            setHasError(true);
+          }}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+        />
+      )}
     </div>
   );
 }

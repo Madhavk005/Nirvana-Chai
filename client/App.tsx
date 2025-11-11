@@ -13,6 +13,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageCurrencyProvider } from "./contexts/LanguageCurrencyContext";
 import { Layout } from "./components/Layout";
 import { ElegantLoader } from "./components/ElegantLoader";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { useState, useEffect } from "react";
 import { locationService } from "./services/locationService";
 import Index from "./pages/Index";
@@ -68,29 +69,31 @@ const App = () => {
             <CartDrawer />
             <BrowserRouter>
               <Layout>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/product/:id" element={<ProductDetails />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/account" element={<Account />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/shipping" element={<Shipping />} />
-                  <Route path="/returns" element={<Returns />} />
-                  <Route
-                    path="/privacy"
-                    element={
-                      <PlaceholderPage
-                        title="Privacy Policy"
-                        description="How we protect and use your personal information."
-                      />
-                    }
-                  />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <ErrorBoundary>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/shipping" element={<Shipping />} />
+                    <Route path="/returns" element={<Returns />} />
+                    <Route
+                      path="/privacy"
+                      element={
+                        <PlaceholderPage
+                          title="Privacy Policy"
+                          description="How we protect and use your personal information."
+                        />
+                      }
+                    />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </ErrorBoundary>
               </Layout>
             </BrowserRouter>
           </LanguageCurrencyProvider>

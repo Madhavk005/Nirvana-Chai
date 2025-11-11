@@ -5,10 +5,11 @@ import { createServer } from "./server";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: process.env.NODE_ENV === 'production' ? '/Nirvana-Chai/' : '/',
+  base: process.env.NODE_ENV === 'production' && !process.env.VERCEL ? '/Nirvana-Chai/' : '/',
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: ["cosmological-unlikened-hoyt.ngrok-free.dev"],
     fs: {
       allow: ["./", "./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],

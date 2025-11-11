@@ -33,6 +33,7 @@ import {
 } from "../hooks/useSimpleAnimation";
 import { TEA_PRODUCTS } from "../data/teaProducts";
 import { CurrencyUtility } from "../utils/currency";
+import { OptimizedImage } from "../components/OptimizedImage";
 import NotFound from "./NotFound";
 
 export default function ProductDetails() {
@@ -189,22 +190,31 @@ export default function ProductDetails() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white border-b border-sage-300 sticky top-0 z-40 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <motion.button
               whileHover={{ scale: 1.05 }}
               onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-sage-700 hover:text-sage-800 transition-colors font-medium"
+              className="flex items-center gap-2 text-sage-700 hover:text-sage-800 transition-colors font-medium text-sm sm:text-base"
             >
-              <ArrowLeft className="h-5 w-5" />
-              {currentLanguage.code === "ru"
-                ? "Назад к магазину"
-                : currentLanguage.code === "kz"
-                  ? "Дүкенге оралу"
-                  : "Back to Shop"}
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="hidden sm:inline">
+                {currentLanguage.code === "ru"
+                  ? "Назад к магазину"
+                  : currentLanguage.code === "kz"
+                    ? "Дүкенге оралу"
+                    : "Back to Shop"}
+              </span>
+              <span className="sm:hidden">
+                {currentLanguage.code === "ru"
+                  ? "Назад"
+                  : currentLanguage.code === "kz"
+                    ? "Артқа"
+                    : "Back"}
+              </span>
             </motion.button>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 onClick={handleToggleWishlist}
@@ -215,7 +225,7 @@ export default function ProductDetails() {
                 }`}
               >
                 <Heart
-                  className={`h-5 w-5 ${isInWishlist(productData.id) ? "fill-current" : ""}`}
+                  className={`h-4 w-4 sm:h-5 sm:w-5 ${isInWishlist(productData.id) ? "fill-current" : ""}`}
                 />
               </motion.button>
 
@@ -223,15 +233,15 @@ export default function ProductDetails() {
                 whileHover={{ scale: 1.1 }}
                 className="p-2 rounded-full bg-sage-100 text-sage-600 hover:bg-sage-200 transition-all"
               >
-                <Share2 className="h-5 w-5" />
+                <Share2 className="h-4 w-4 sm:h-5 sm:w-5" />
               </motion.button>
             </div>
           </div>
         </div>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
           <motion.div
             ref={heroAnimation.elementRef}
             className={animationClasses.fadeInUp(heroAnimation.isVisible)}
@@ -242,10 +252,12 @@ export default function ProductDetails() {
                   className="relative aspect-square rounded-3xl overflow-hidden bg-white border border-sage-300 shadow-2xl"
                   layoutId={`product-image-${productData.id}`}
                 >
-                  <img
+                  <OptimizedImage
                     src={productData.images[selectedImage]}
                     alt={productData.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    aspectRatio="square"
+                    className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                    priority={selectedImage === 0}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-500/10 via-transparent to-sage-400/10 opacity-60"></div>
                   <button
@@ -298,10 +310,11 @@ export default function ProductDetails() {
                         : "border-sage-300 hover:border-sage-500/50"
                     }`}
                   >
-                    <img
+                    <OptimizedImage
                       src={image}
                       alt={`${productData.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      aspectRatio="square"
+                      className="w-full h-full"
                     />
                   </motion.button>
                 ))}
@@ -324,7 +337,7 @@ export default function ProductDetails() {
                 <span className="capitalize">{productData.rarity}</span>
               </div>
 
-              <h1 className="text-4xl lg:text-5xl font-heading font-bold bg-gradient-to-r from-sage-600 via-sage-700 to-sage-800 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold bg-gradient-to-r from-sage-600 via-sage-700 to-sage-800 bg-clip-text text-transparent leading-tight">
                 {currentLanguage.code === "ru" && productData.nameRu
                   ? productData.nameRu
                   : currentLanguage.code === "kz" && productData.nameKz
@@ -353,12 +366,12 @@ export default function ProductDetails() {
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-baseline gap-4">
-                  <span className="text-4xl font-bold text-sage-700">
+                <div className="flex items-baseline gap-3 sm:gap-4">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-sage-700">
                     {regionalCurrency.formatRegional(productData.price)}
                   </span>
                   {productData.originalPrice && (
-                    <span className="text-2xl text-gray-500 line-through">
+                    <span className="text-lg sm:text-xl lg:text-2xl text-gray-500 line-through">
                       {regionalCurrency.formatRegional(
                         productData.originalPrice,
                       )}
@@ -391,11 +404,11 @@ export default function ProductDetails() {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-sage-50 rounded-xl p-4 border border-sage-300">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="bg-sage-50 rounded-xl p-3 sm:p-4 border border-sage-300">
                   <div className="flex items-center gap-2 text-sage-600 mb-2">
                     <Thermometer className="h-4 w-4" />
-                    <span className="text-sm font-medium">
+                    <span className="text-xs sm:text-sm font-medium">
                       {currentLanguage.code === "ru"
                         ? "Температура"
                         : currentLanguage.code === "kz"
@@ -403,15 +416,15 @@ export default function ProductDetails() {
                           : "Temperature"}
                     </span>
                   </div>
-                  <div className="text-sage-800 font-semibold">
+                  <div className="text-sage-800 font-semibold text-sm sm:text-base">
                     {productData.specifications.brewTemp}
                   </div>
                 </div>
 
-                <div className="bg-sage-50 rounded-xl p-4 border border-sage-300">
+                <div className="bg-sage-50 rounded-xl p-3 sm:p-4 border border-sage-300">
                   <div className="flex items-center gap-2 text-sage-600 mb-2">
                     <Clock className="h-4 w-4" />
-                    <span className="text-sm font-medium">
+                    <span className="text-xs sm:text-sm font-medium">
                       {currentLanguage.code === "ru"
                         ? "Время"
                         : currentLanguage.code === "kz"
@@ -419,7 +432,7 @@ export default function ProductDetails() {
                           : "Steep Time"}
                     </span>
                   </div>
-                  <div className="text-sage-800 font-semibold">
+                  <div className="text-sage-800 font-semibold text-sm sm:text-base">
                     {getLocalizedText(productData.specifications, "brewTime")}
                   </div>
                 </div>
@@ -438,30 +451,30 @@ export default function ProductDetails() {
             </div>
 
             <div className="space-y-6">
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 <div className="flex items-center border border-sage-300 rounded-xl bg-sage-50">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 text-sage-600 hover:text-sage-700 transition-colors"
+                    className="p-2 sm:p-3 text-sage-600 hover:text-sage-700 transition-colors"
                   >
-                    <Minus className="h-5 w-5" />
+                    <Minus className="h-4 w-4 sm:h-5 sm:w-5" />
                   </motion.button>
-                  <span className="px-6 py-3 text-sage-800 font-semibold min-w-[3rem] text-center">
+                  <span className="px-4 sm:px-6 py-2 sm:py-3 text-sage-800 font-semibold min-w-[2.5rem] sm:min-w-[3rem] text-center text-sm sm:text-base">
                     {quantity}
                   </span>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 text-sage-600 hover:text-sage-700 transition-colors"
+                    className="p-2 sm:p-3 text-sage-600 hover:text-sage-700 transition-colors"
                   >
-                    <Plus className="h-5 w-5" />
+                    <Plus className="h-4 w-4 sm:h-5 sm:w-5" />
                   </motion.button>
                 </div>
 
-                <div className="text-sm text-sage-600">
+                <div className="text-xs sm:text-sm text-sage-600">
                   {currentLanguage.code === "ru"
                     ? "Общая стоимость:"
                     : currentLanguage.code === "kz"
@@ -479,28 +492,28 @@ export default function ProductDetails() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleAddToCart}
-                className="w-full group relative overflow-hidden bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-400 hover:to-amber-500 text-white px-8 py-4 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 font-bold shadow-xl hover:shadow-2xl border border-amber-500"
+                className="w-full group relative overflow-hidden bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-400 hover:to-amber-500 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-2xl transition-all duration-500 flex items-center justify-center gap-2 sm:gap-3 font-bold shadow-xl hover:shadow-2xl border border-amber-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <ShoppingCart className="h-6 w-6 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative z-10 text-lg">
+                <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                <span className="relative z-10 text-base sm:text-lg">
                   {currentLanguage.code === "ru"
                     ? "Добавить в корзину"
                     : currentLanguage.code === "kz"
                       ? "Себетке қосу"
                       : "Add to Cart"}
                 </span>
-                <span className="relative z-10 text-white/90 font-medium">
+                <span className="relative z-10 text-white/90 font-medium text-sm sm:text-base">
                   {regionalCurrency.formatRegional(
                     productData.price * quantity,
                   )}
                 </span>
               </motion.button>
 
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="flex flex-col items-center gap-2 p-3 bg-sage-50 rounded-xl border border-sage-300">
-                  <Shield className="h-5 w-5 text-sage-600" />
-                  <span className="text-xs text-sage-700 font-medium">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+                <div className="flex flex-col items-center gap-2 p-2 sm:p-3 bg-sage-50 rounded-xl border border-sage-300">
+                  <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-sage-600" />
+                  <span className="text-xs text-sage-700 font-medium leading-tight">
                     {currentLanguage.code === "ru"
                       ? "Гарантия качества"
                       : currentLanguage.code === "kz"
@@ -508,9 +521,9 @@ export default function ProductDetails() {
                         : "Quality Guarantee"}
                   </span>
                 </div>
-                <div className="flex flex-col items-center gap-2 p-3 bg-sage-50 rounded-xl border border-sage-300">
-                  <Truck className="h-5 w-5 text-sage-600" />
-                  <span className="text-xs text-sage-700 font-medium">
+                <div className="flex flex-col items-center gap-2 p-2 sm:p-3 bg-sage-50 rounded-xl border border-sage-300">
+                  <Truck className="h-4 w-4 sm:h-5 sm:w-5 text-sage-600" />
+                  <span className="text-xs text-sage-700 font-medium leading-tight">
                     {currentLanguage.code === "ru"
                       ? "Быстрая доставка"
                       : currentLanguage.code === "kz"
@@ -518,9 +531,9 @@ export default function ProductDetails() {
                         : "Fast Shipping"}
                   </span>
                 </div>
-                <div className="flex flex-col items-center gap-2 p-3 bg-sage-50 rounded-xl border border-sage-300">
-                  <RotateCcw className="h-5 w-5 text-sage-600" />
-                  <span className="text-xs text-sage-700 font-medium">
+                <div className="flex flex-col items-center gap-2 p-2 sm:p-3 bg-sage-50 rounded-xl border border-sage-300">
+                  <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5 text-sage-600" />
+                  <span className="text-xs text-sage-700 font-medium leading-tight">
                     {currentLanguage.code === "ru"
                       ? "30 дней возврат"
                       : currentLanguage.code === "kz"
@@ -545,13 +558,13 @@ export default function ProductDetails() {
                 key={tab.id}
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all text-sm sm:text-base ${
                   activeTab === tab.id
                     ? "bg-gold-500 text-black shadow-lg"
                     : "text-sage-700 hover:text-sage-800 hover:bg-gray-700/50"
                 }`}
               >
-                <tab.icon className="h-5 w-5" />
+                <tab.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 {tab.label}
               </motion.button>
             ))}
@@ -564,21 +577,21 @@ export default function ProductDetails() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="bg-white backdrop-blur-sm border border-sage-300 rounded-3xl p-8 shadow-xl"
+              className="bg-white backdrop-blur-sm border border-sage-300 rounded-3xl p-4 sm:p-8 shadow-xl"
             >
               {activeTab === "description" && (
                 <div className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      <h3 className="text-2xl font-heading font-bold text-sage-700 flex items-center gap-2">
-                        <Info className="h-6 w-6" />
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+                    <div className="space-y-4 sm:space-y-6">
+                      <h3 className="text-lg sm:text-2xl font-heading font-bold text-sage-700 flex items-center gap-2">
+                        <Info className="h-5 w-5 sm:h-6 sm:w-6" />
                         {currentLanguage.code === "ru"
                           ? "Описание"
                           : currentLanguage.code === "kz"
                             ? "Сипаттама"
                             : "Description"}
                       </h3>
-                      <p className="text-sage-800/80 leading-relaxed text-lg">
+                      <p className="text-sage-800/80 leading-relaxed text-base sm:text-lg">
                         {currentLanguage.code === "ru" &&
                         productData.descriptionRu
                           ? productData.descriptionRu

@@ -96,25 +96,25 @@ export default function Cart() {
 
   if (cartItems.length === 0 && checkoutStep !== 4) {
     return (
-      <div className="min-h-screen bg-background py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="bg-card border border-border rounded-2xl p-12">
-            <ShoppingBag className="h-16 w-16 text-sage-400 mx-auto mb-6" />
-            <h1 className="text-3xl font-heading font-bold text-sage-800 mb-4">
+      <div className="min-h-screen bg-background py-12 sm:py-16">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 text-center">
+          <div className="bg-card border border-border rounded-2xl p-8 sm:p-12">
+            <ShoppingBag className="h-12 w-12 sm:h-16 sm:w-16 text-sage-400 mx-auto mb-4 sm:mb-6" />
+            <h1 className="text-2xl sm:text-3xl font-heading font-bold text-sage-800 mb-3 sm:mb-4">
               {i18n.language === "ru"
                 ? "Ваша корзина пуста"
                 : "Your cart is empty"}
             </h1>
-            <p className="text-lg text-sage-600 mb-8">
+            <p className="text-base sm:text-lg text-sage-600 mb-6 sm:mb-8">
               {i18n.language === "ru"
                 ? "Откройте для себя нашу коллекцию премиум чая и начните свое путешествие к идеальной чашке."
                 : "Discover our premium tea collection and start your journey to the perfect cup."}
             </p>
             <a
               href="/shop"
-              className="inline-flex items-center bg-sage-600 hover:bg-sage-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-colors gap-2"
+              className="inline-flex items-center bg-sage-600 hover:bg-sage-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-colors gap-2"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
               {i18n.language === "ru" ? "Начать покупки" : "Start Shopping"}
             </a>
           </div>
@@ -124,11 +124,11 @@ export default function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-8">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-background py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-heading font-bold text-sage-800 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-sage-800 mb-2">
             {checkoutStep === 4
               ? i18n.language === "ru"
                 ? "Заказ подтвержден!"
@@ -138,25 +138,28 @@ export default function Cart() {
                 : "Shopping Cart"}
           </h1>
           {checkoutStep !== 4 && (
-            <div className="flex items-center space-x-2 text-sm text-sage-600">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-sage-600">
               <span
                 className={checkoutStep >= 1 ? "text-sage-800 font-medium" : ""}
               >
                 {i18n.language === "ru" ? "Корзина" : "Cart"}
               </span>
-              <span>→</span>
+              <span className="hidden sm:inline">→</span>
+              <span className="sm:hidden">{">"}</span>
               <span
                 className={checkoutStep >= 2 ? "text-sage-800 font-medium" : ""}
               >
                 {i18n.language === "ru" ? "Доставка" : "Shipping"}
               </span>
-              <span>→</span>
+              <span className="hidden sm:inline">→</span>
+              <span className="sm:hidden">{">"}</span>
               <span
                 className={checkoutStep >= 3 ? "text-sage-800 font-medium" : ""}
               >
                 {i18n.language === "ru" ? "Оплата" : "Payment"}
               </span>
-              <span>→</span>
+              <span className="hidden sm:inline">→</span>
+              <span className="sm:hidden">{">"}</span>
               <span
                 className={checkoutStep >= 4 ? "text-sage-800 font-medium" : ""}
               >
@@ -169,36 +172,36 @@ export default function Cart() {
         {/* Step 4: Order Confirmation */}
         {checkoutStep === 4 && (
           <div className="max-w-2xl mx-auto text-center">
-            <div className="bg-card border border-border rounded-2xl p-12">
-              <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
-              <h2 className="text-2xl font-heading font-bold text-sage-800 mb-4">
+            <div className="bg-card border border-border rounded-2xl p-8 sm:p-12">
+              <CheckCircle className="h-12 w-12 sm:h-16 sm:w-16 text-green-500 mx-auto mb-4 sm:mb-6" />
+              <h2 className="text-xl sm:text-2xl font-heading font-bold text-sage-800 mb-3 sm:mb-4">
                 {i18n.language === "ru"
                   ? "Спасибо за ваш заказ!"
                   : "Thank You for Your Order!"}
               </h2>
-              <p className="text-lg text-sage-600 mb-6">
+              <p className="text-base sm:text-lg text-sage-600 mb-4 sm:mb-6">
                 {i18n.language === "ru"
                   ? "Ваш заказ подтвержден и будет отправлен в течение 1-2 рабочих дней."
                   : "Your order has been confirmed and will be shipped within 1-2 business days."}
               </p>
-              <div className="bg-sage-50 border border-sage-200 rounded-lg p-4 mb-6">
-                <div className="text-sm text-sage-600">
+              <div className="bg-sage-50 border border-sage-200 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+                <div className="text-xs sm:text-sm text-sage-600">
                   {i18n.language === "ru" ? "Номер заказа" : "Order Number"}
                 </div>
-                <div className="text-lg font-semibold text-sage-800">
+                <div className="text-base sm:text-lg font-semibold text-sage-800">
                   #{orderId}
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <a
                   href="/account"
-                  className="bg-sage-600 hover:bg-sage-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                  className="bg-sage-600 hover:bg-sage-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base"
                 >
                   {i18n.language === "ru" ? "Отследить заказ" : "Track Order"}
                 </a>
                 <a
                   href="/shop"
-                  className="border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                  className="border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base"
                 >
                   {i18n.language === "ru"
                     ? "Продолжить покупки"
@@ -211,74 +214,76 @@ export default function Cart() {
 
         {/* Steps 1-3: Cart, Shipping, Payment */}
         {checkoutStep !== 4 && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2">
               {/* Step 1: Cart Items */}
               {checkoutStep === 1 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h2 className="text-xl font-heading font-bold text-sage-800 mb-6">
+                <div className="bg-card border border-border rounded-2xl p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl font-heading font-bold text-sage-800 mb-4 sm:mb-6">
                     {i18n.language === "ru" ? "Ваши товары" : "Your Items"} (
                     {totalItems})
                   </h2>
 
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     {cartItems.map((item) => (
                       <div
                         key={item.id}
-                        className="flex items-center gap-4 p-4 border border-border rounded-lg"
+                        className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 border border-border rounded-lg"
                       >
-                        <div className="w-16 h-16 bg-gradient-to-br from-sage-50 to-clay-50 rounded-lg flex items-center justify-center text-2xl">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-sage-50 to-clay-50 rounded-lg flex items-center justify-center text-lg sm:text-2xl flex-shrink-0">
                           {item.image}
                         </div>
 
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-sage-800">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sage-800 text-sm sm:text-base">
                             {item.name}
                           </h3>
-                          <p className="text-sm text-sage-600">
+                          <p className="text-xs sm:text-sm text-sage-600">
                             {item.category}
                           </p>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-lg font-semibold text-sage-800">
+                            <span className="text-base sm:text-lg font-semibold text-sage-800">
                               {formatPrice(item.price)}
                             </span>
                             {item.originalPrice && (
-                              <span className="text-sm text-sage-400 line-through">
+                              <span className="text-xs sm:text-sm text-sage-400 line-through">
                                 {formatPrice(item.originalPrice)}
                               </span>
                             )}
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-start">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity - 1)
+                              }
+                              className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center border border-border rounded-md hover:bg-sage-50"
+                            >
+                              <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
+                            </button>
+                            <span className="w-6 sm:w-8 text-center font-medium text-sm sm:text-base">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                              className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center border border-border rounded-md hover:bg-sage-50"
+                            >
+                              <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                            </button>
+                          </div>
+
                           <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className="w-8 h-8 flex items-center justify-center border border-border rounded-md hover:bg-sage-50"
+                            onClick={() => removeItem(item.id)}
+                            className="p-1 sm:p-2 text-red-500 hover:bg-red-50 rounded-md"
                           >
-                            <Minus className="h-4 w-4" />
-                          </button>
-                          <span className="w-8 text-center font-medium">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                            className="w-8 h-8 flex items-center justify-center border border-border rounded-md hover:bg-sage-50"
-                          >
-                            <Plus className="h-4 w-4" />
+                            <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                           </button>
                         </div>
-
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-md"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
                       </div>
                     ))}
                   </div>
@@ -287,17 +292,17 @@ export default function Cart() {
 
               {/* Step 2: Shipping Information */}
               {checkoutStep === 2 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h2 className="text-xl font-heading font-bold text-sage-800 mb-6">
+                <div className="bg-card border border-border rounded-2xl p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl font-heading font-bold text-sage-800 mb-4 sm:mb-6">
                     {i18n.language === "ru"
                       ? "Информация о доставке"
                       : "Shipping Information"}
                   </h2>
 
-                  <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <form className="space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Имя *" : "First Name *"}
                         </label>
                         <input
@@ -310,11 +315,11 @@ export default function Cart() {
                             })
                           }
                           required
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Фамилия *" : "Last Name *"}
                         </label>
                         <input
@@ -327,14 +332,14 @@ export default function Cart() {
                             })
                           }
                           required
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Email *" : "Email *"}
                         </label>
                         <input
@@ -347,11 +352,11 @@ export default function Cart() {
                             })
                           }
                           required
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Телефон" : "Phone"}
                         </label>
                         <input
@@ -363,13 +368,13 @@ export default function Cart() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-sage-700 mb-2">
+                      <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                         {i18n.language === "ru" ? "Адрес *" : "Address *"}
                       </label>
                       <input
@@ -382,7 +387,7 @@ export default function Cart() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         placeholder={
                           i18n.language === "ru"
                             ? "Улица, дом, квартира и т.д."
@@ -391,9 +396,9 @@ export default function Cart() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Город *" : "City *"}
                         </label>
                         <input
@@ -406,11 +411,11 @@ export default function Cart() {
                             })
                           }
                           required
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru" ? "Страна *" : "Country *"}
                         </label>
                         <select
@@ -422,7 +427,7 @@ export default function Cart() {
                             })
                           }
                           required
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         >
                           <option value="Kazakhstan">
                             {i18n.language === "ru"
@@ -444,7 +449,7 @@ export default function Cart() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru"
                             ? "Почтовый индекс"
                             : "Postal Code"}
@@ -458,7 +463,7 @@ export default function Cart() {
                               postalCode: e.target.value,
                             })
                           }
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
                     </div>
@@ -468,51 +473,51 @@ export default function Cart() {
 
               {/* Step 3: Payment */}
               {checkoutStep === 3 && (
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h2 className="text-xl font-heading font-bold text-sage-800 mb-6">
+                <div className="bg-card border border-border rounded-2xl p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl font-heading font-bold text-sage-800 mb-4 sm:mb-6">
                     {i18n.language === "ru"
                       ? "Способ оплаты"
                       : "Payment Method"}
                   </h2>
 
-                  <div className="space-y-4 mb-6">
-                    <label className="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-sage-50">
+                  <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                    <label className="flex items-center p-3 sm:p-4 border border-border rounded-lg cursor-pointer hover:bg-sage-50">
                       <input
                         type="radio"
                         name="payment"
                         value="card"
                         checked={paymentMethod === "card"}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="mr-3"
+                        className="mr-2 sm:mr-3"
                       />
-                      <CreditCard className="h-5 w-5 mr-3 text-sage-600" />
-                      <span className="font-medium">
+                      <CreditCard className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-sage-600" />
+                      <span className="font-medium text-sm sm:text-base">
                         {i18n.language === "ru"
                           ? "Кредитная/Дебетовая карта"
                           : "Credit/Debit Card"}
                       </span>
                     </label>
 
-                    <label className="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-sage-50">
+                    <label className="flex items-center p-3 sm:p-4 border border-border rounded-lg cursor-pointer hover:bg-sage-50">
                       <input
                         type="radio"
                         name="payment"
                         value="paypal"
                         checked={paymentMethod === "paypal"}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="mr-3"
+                        className="mr-2 sm:mr-3"
                       />
-                      <div className="w-5 h-5 mr-3 bg-blue-600 rounded text-white text-xs flex items-center justify-center">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 bg-blue-600 rounded text-white text-xs flex items-center justify-center">
                         P
                       </div>
-                      <span className="font-medium">PayPal</span>
+                      <span className="font-medium text-sm sm:text-base">PayPal</span>
                     </label>
                   </div>
 
                   {paymentMethod === "card" && (
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-sage-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                           {i18n.language === "ru"
                             ? "Номер карты"
                             : "Card Number"}
@@ -520,13 +525,13 @@ export default function Cart() {
                         <input
                           type="text"
                           placeholder="1234 5678 9012 3456"
-                          className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                         />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-sage-700 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                             {i18n.language === "ru"
                               ? "Срок действия"
                               : "Expiry Date"}
@@ -534,17 +539,17 @@ export default function Cart() {
                           <input
                             type="text"
                             placeholder="MM/YY"
-                            className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-sage-700 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-sage-700 mb-1 sm:mb-2">
                             CVV
                           </label>
                           <input
                             type="text"
                             placeholder="123"
-                            className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400"
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-400 text-sm sm:text-base"
                           />
                         </div>
                       </div>
@@ -556,13 +561,13 @@ export default function Cart() {
 
             {/* Order Summary Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-card border border-border rounded-2xl p-6 sticky top-4">
-                <h3 className="text-xl font-heading font-bold text-sage-800 mb-6">
+              <div className="bg-card border border-border rounded-2xl p-4 sm:p-6 sticky top-4">
+                <h3 className="text-lg sm:text-xl font-heading font-bold text-sage-800 mb-4 sm:mb-6">
                   {i18n.language === "ru" ? "Сводка заказа" : "Order Summary"}
                 </h3>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-sage-600">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                  <div className="flex justify-between text-sage-600 text-sm sm:text-base">
                     <span>
                       {i18n.language === "ru"
                         ? "Промежуточный итог"
@@ -570,7 +575,7 @@ export default function Cart() {
                     </span>
                     <span>{formatPrice(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sage-600">
+                  <div className="flex justify-between text-sage-600 text-sm sm:text-base">
                     <span>
                       {i18n.language === "ru" ? "Доставка" : "Shipping"}
                     </span>
@@ -582,12 +587,12 @@ export default function Cart() {
                         : formatPrice(shipping)}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sage-600">
+                  <div className="flex justify-between text-sage-600 text-sm sm:text-base">
                     <span>{i18n.language === "ru" ? "Налог" : "Tax"}</span>
                     <span>{formatPrice(tax)}</span>
                   </div>
-                  <div className="border-t border-border pt-3">
-                    <div className="flex justify-between text-lg font-semibold text-sage-800">
+                  <div className="border-t border-border pt-2 sm:pt-3">
+                    <div className="flex justify-between text-base sm:text-lg font-semibold text-sage-800">
                       <span>{i18n.language === "ru" ? "Итого" : "Total"}</span>
                       <span>{formatPrice(total)}</span>
                     </div>
@@ -595,23 +600,23 @@ export default function Cart() {
                 </div>
 
                 {shipping === 0 && (
-                  <div className="flex items-center gap-2 text-sm text-green-600 mb-6">
-                    <Truck className="h-4 w-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-green-600 mb-4 sm:mb-6">
+                    <Truck className="h-3 w-3 sm:h-4 sm:w-4" />
                     {i18n.language === "ru"
                       ? "Бесплатная доставка при заказе от $50!"
                       : "Free shipping on orders over $50!"}
                   </div>
                 )}
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-2 text-sm text-sage-600">
-                    <Shield className="h-4 w-4" />
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-sage-600">
+                    <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
                     {i18n.language === "ru"
                       ? "Безопасная оплата"
                       : "Secure checkout"}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-sage-600">
-                    <Truck className="h-4 w-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-sage-600">
+                    <Truck className="h-3 w-3 sm:h-4 sm:w-4" />
                     {i18n.language === "ru"
                       ? "Быстрая доставка"
                       : "Fast delivery"}
@@ -619,16 +624,16 @@ export default function Cart() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {checkoutStep === 1 && (
                     <button
                       onClick={() => setCheckoutStep(2)}
-                      className="w-full bg-sage-600 hover:bg-sage-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                      className="w-full bg-sage-600 hover:bg-sage-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
                       {i18n.language === "ru"
                         ? "Перейти к доставке"
                         : "Proceed to Shipping"}
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                     </button>
                   )}
 
@@ -636,16 +641,16 @@ export default function Cart() {
                     <div className="space-y-2">
                       <button
                         onClick={() => setCheckoutStep(3)}
-                        className="w-full bg-sage-600 hover:bg-sage-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                        className="w-full bg-sage-600 hover:bg-sage-700 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                       >
                         {i18n.language === "ru"
                           ? "Продолжить оплату"
                           : "Continue to Payment"}
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                       </button>
                       <button
                         onClick={() => setCheckoutStep(1)}
-                        className="w-full border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white py-3 px-6 rounded-lg font-medium transition-colors"
+                        className="w-full border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors text-sm sm:text-base"
                       >
                         {i18n.language === "ru"
                           ? "Вернуться к корзине"
@@ -659,18 +664,18 @@ export default function Cart() {
                       <button
                         onClick={handleCheckout}
                         disabled={isProcessing}
-                        className="w-full bg-sage-600 hover:bg-sage-700 disabled:bg-sage-400 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                        className="w-full bg-sage-600 hover:bg-sage-700 disabled:bg-sage-400 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                       >
                         {isProcessing ? (
                           <>
-                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                            <div className="animate-spin rounded-full h-3 w-3 sm:h-4 sm:w-4 border-2 border-white border-t-transparent"></div>
                             {i18n.language === "ru"
                               ? "Обработка..."
                               : "Processing..."}
                           </>
                         ) : (
                           <>
-                            <CreditCard className="h-4 w-4" />
+                            <CreditCard className="h-3 w-3 sm:h-4 sm:w-4" />
                             {i18n.language === "ru"
                               ? "Завершить заказ"
                               : "Complete Order"}
@@ -679,7 +684,7 @@ export default function Cart() {
                       </button>
                       <button
                         onClick={() => setCheckoutStep(2)}
-                        className="w-full border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white py-3 px-6 rounded-lg font-medium transition-colors"
+                        className="w-full border border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors text-sm sm:text-base"
                       >
                         {i18n.language === "ru"
                           ? "Вернуться к доставке"

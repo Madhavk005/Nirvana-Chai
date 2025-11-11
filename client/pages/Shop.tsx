@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,6 +20,8 @@ import { useCartStore, useWishlistStore } from "../stores/useStore";
 import { showToast } from "../components/Toast/ToastProvider";
 import { CurrencyUtility } from "../utils/currency";
 import { TEA_PRODUCTS } from "../data/teaProducts";
+import { ProductGridSkeleton } from "../components/SkeletonLoader";
+import { OptimizedImage } from "../components/OptimizedImage";
 
 export default function Shop() {
   const navigate = useNavigate();
@@ -52,8 +54,8 @@ export default function Shop() {
     { id: "luxury", name: "Luxury", nameRu: "Люкс", nameKz: "Люкс" },
   ];
 
-  // Build products from TEA_PRODUCTS dataset
-  const products = (() => {
+  // Build products from TEA_PRODUCTS dataset with memoization
+  const products = useMemo(() => {
     const util = new CurrencyUtility(currentCurrency.code);
     const mapTierToCategoryId: Record<string, string> = {
       Economy: "economy",
@@ -102,7 +104,7 @@ export default function Shop() {
         altitude: p.weight,
       };
     });
-  })();
+  }, [currentCurrency.code]);
 
   // Filtering logic
   const filteredProducts = products.filter((product) => {
@@ -199,16 +201,16 @@ export default function Shop() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Clean Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 to-emerald-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <section className="bg-gradient-to-br from-green-50 to-emerald-50 py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 text-center">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             {currentLanguage.code === "ru"
               ? "Наш Магазин Чая"
               : currentLanguage.code === "kz"
                 ? "Біздің Шай Дүкені"
                 : "Our Tea Shop"}
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
             {currentLanguage.code === "ru"
               ? "Откройте для себя нашу тщательно подобранную коллекцию премиум чая"
               : currentLanguage.code === "kz"
@@ -218,15 +220,15 @@ export default function Shop() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
           {/* Filters Sidebar */}
           <div className="lg:w-64">
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden mb-4">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="w-full bg-white border border-gray-300 rounded-lg p-4 flex items-center justify-between text-gray-700 hover:bg-gray-50 transition-colors"
+                className="w-full bg-white border border-gray-300 rounded-lg p-3 sm:p-4 flex items-center justify-between text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <SlidersHorizontal className="h-5 w-5" />
@@ -255,7 +257,7 @@ export default function Shop() {
               className={`space-y-6 ${showFilters ? "block" : "hidden lg:block"}`}
             >
               {/* Search */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">
                   {currentLanguage.code === "ru"
                     ? "Поиск"
@@ -290,7 +292,7 @@ export default function Shop() {
               </div>
 
               {/* Category Filter */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">
                   {currentLanguage.code === "ru"
                     ? "Категории"
@@ -339,8 +341,8 @@ export default function Shop() {
           {/* Products Section */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 mb-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
                 {/* Results Counter */}
                 <div className="text-sm text-gray-600">
                   {sortedProducts.length > 0 ? (
@@ -367,7 +369,7 @@ export default function Shop() {
                 </div>
 
                 {/* Sort and View Controls */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <div className="relative">
                     <select
                       value={sortBy}
@@ -433,8 +435,11 @@ export default function Shop() {
 
             {/* Products Grid */}
             {sortedProducts.length > 0 ? (
-              <div
-                className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className={`grid gap-4 sm:gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
               >
                 {sortedProducts.map((product, index) => (
                   <motion.div
@@ -450,10 +455,11 @@ export default function Shop() {
                     <div
                       className={`relative ${viewMode === "list" ? "w-48 flex-shrink-0" : "aspect-square"}`}
                     >
-                      <img
+                      <OptimizedImage
                         src={product.image}
                         alt={getLocalizedName(product)}
-                        className="w-full h-full object-cover"
+                        aspectRatio="square"
+                        className="w-full h-full"
                       />
 
                       {/* Overlay Actions */}
@@ -497,7 +503,7 @@ export default function Shop() {
 
                     {/* Product Info */}
                     <div
-                      className={`p-4 ${viewMode === "list" ? "flex-1 flex flex-col" : ""}`}
+                      className={`p-3 sm:p-4 ${viewMode === "list" ? "flex-1 flex flex-col" : ""}`}
                     >
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold text-gray-900 mb-1">
@@ -560,7 +566,7 @@ export default function Shop() {
 
                         <motion.button
                           onClick={() => handleAddToCart(product)}
-                          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
+                          className="bg-green-500 hover:bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
                           whileHover={{
                             scale: 1.05,
                             boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
@@ -583,35 +589,41 @@ export default function Shop() {
                     </div>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             ) : (
-              <div className="text-center py-12">
-                <div className="text-6xl mb-4">🫖</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-8 sm:py-12"
+              >
+                <div className="text-4xl sm:text-6xl mb-4">🫖</div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
                   {currentLanguage.code === "ru"
                     ? "Товары не найдены"
                     : currentLanguage.code === "kz"
                       ? "Тауарлар табылмады"
                       : "No products found"}
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">
                   {currentLanguage.code === "ru"
                     ? "Попробуйте изменить критерии поиска"
                     : currentLanguage.code === "kz"
                       ? "Іздеу критерийлерін өзгертіп көріңіз"
                       : "Try adjusting your search criteria"}
                 </p>
-                <button
+                <motion.button
                   onClick={clearFilters}
-                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors"
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg transition-colors text-sm sm:text-base"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {currentLanguage.code === "ru"
                     ? "Очистить фильтры"
                     : currentLanguage.code === "kz"
                       ? "Сүзгілерді тазарту"
                       : "Clear Filters"}
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
             )}
           </div>
         </div>

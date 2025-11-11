@@ -175,15 +175,15 @@ export default function Index() {
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
 
-          <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-12 sm:py-16">
             <div
               ref={heroAnimation.elementRef}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${animationClasses.fadeInUp(heroAnimation.isVisible)}`}
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center ${animationClasses.fadeInUp(heroAnimation.isVisible)}`}
             >
               {/* Left Content */}
-              <div className="space-y-8 text-white">
-                <div className="space-y-4">
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+              <div className="space-y-6 sm:space-y-8 text-white">
+                <div className="space-y-3 sm:space-y-4">
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                     {t("hero.title1", "Discover Your")}
                     <br />
                     <span className="text-emerald-400">
@@ -192,24 +192,24 @@ export default function Index() {
                   </h1>
                 </div>
 
-                <p className="text-lg text-gray-200 leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg text-gray-200 leading-relaxed max-w-lg">
                   {t(
                     "hero.subtitle",
                     "Experience the finest teas from around the world, carefully selected for quality and taste.",
                   )}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link
                     to="/shop"
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-center shadow-lg hover:shadow-xl"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-center shadow-lg hover:shadow-xl text-sm sm:text-base"
                   >
                     {t("hero.cta_primary", "Shop Now")}
                   </Link>
 
                   <Link
                     to="/about"
-                    className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-center"
+                    className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-6 sm:px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-center text-sm sm:text-base"
                   >
                     {t("hero.cta_secondary", "Learn More")}
                   </Link>
@@ -217,12 +217,12 @@ export default function Index() {
               </div>
 
               {/* Right Content */}
-              <div className="relative">
+              <div className="relative mt-8 lg:mt-0">
                 <div className="relative group">
                   <OptimizedImage
                     src={teaImages.teaCup}
                     alt="Premium tea cup"
-                    className="w-full h-80 sm:h-96 lg:h-[500px] object-cover rounded-lg shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-64 sm:h-80 lg:h-96 xl:h-[500px] object-cover rounded-lg shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
                     aspectRatio="portrait"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
@@ -238,20 +238,20 @@ export default function Index() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="py-16 sm:py-20 lg:py-24 bg-background"
+          className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-background"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-sage-800 mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold text-sage-800 mb-4 sm:mb-6">
                 {t("why_choose.title", "Why Tea Lovers Choose Nirvanachai")}
               </h2>
-              <p className="text-lg sm:text-xl text-sage-600 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-sage-600 max-w-4xl mx-auto leading-relaxed">
                 {t(
                   "why_choose.subtitle",
                   "Discover the difference that three generations of passion, premium sourcing, and mindful curation make in every sip.",
@@ -259,7 +259,7 @@ export default function Index() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch">
               {features.map((feature, index) => {
                 const hoverAnimation = useHoverAnimation();
 
@@ -271,7 +271,7 @@ export default function Index() {
                     transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
                     viewport={{ once: true }}
                     className={`
-                    bg-card border border-border rounded-2xl p-6 lg:p-8 text-center group cursor-pointer flex flex-col h-full
+                    bg-card border border-border rounded-2xl p-4 sm:p-6 lg:p-8 text-center group cursor-pointer flex flex-col h-full
                     hover:scale-105 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg
                   `}
                     {...hoverAnimation.hoverProps}
@@ -279,15 +279,15 @@ export default function Index() {
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ duration: 0.2 }}
-                      className="flex justify-center mb-6"
+                      className="flex justify-center mb-4 sm:mb-6"
                     >
                       {feature.icon}
                     </motion.div>
-                    <h3 className="text-lg sm:text-xl font-heading font-semibold text-sage-800 mb-4 group-hover:text-sage-900 transition-colors">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-heading font-semibold text-sage-800 mb-3 sm:mb-4 group-hover:text-sage-900 transition-colors">
                       {t(`why_choose.${feature.key}`, feature.title)}
                     </h3>
                     <div className="flex-grow flex items-center justify-center">
-                      <p className="text-sage-600 leading-relaxed text-sm sm:text-base group-hover:text-sage-700 transition-colors w-full">
+                      <p className="text-sage-600 leading-relaxed text-xs sm:text-sm lg:text-base group-hover:text-sage-700 transition-colors w-full">
                         {t(
                           `why_choose.${feature.key}_desc`,
                           feature.description,
@@ -307,20 +307,20 @@ export default function Index() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="py-20 bg-sage-50"
+          className="py-12 sm:py-16 lg:py-20 bg-sage-50"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-sage-800 mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold text-sage-800 mb-3 sm:mb-4">
                 {t("global_sourcing.title", "Global Sourcing, Local Soul")}
               </h2>
-              <p className="text-lg text-sage-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg text-sage-600 max-w-3xl mx-auto leading-relaxed">
                 {t(
                   "global_sourcing.subtitle",
                   "While proudly rooted in India's rich tea heritage, Nirvanachai goes beyond borders to source handpicked, high-grade teas from some of the most celebrated tea-growing regions in the world:",
@@ -328,7 +328,7 @@ export default function Index() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-6 items-stretch">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6 items-stretch">
               {regions.map((region, index) => (
                 <motion.div
                   key={index}
@@ -337,23 +337,23 @@ export default function Index() {
                   transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className={`bg-gradient-to-br ${region.color} border border-border rounded-2xl p-4 lg:p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full min-h-[200px] lg:min-h-[220px] cursor-pointer`}
+                  className={`bg-gradient-to-br ${region.color} border border-border rounded-2xl p-3 sm:p-4 lg:p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] xl:min-h-[220px] cursor-pointer`}
                 >
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="text-3xl lg:text-4xl mb-3 lg:mb-4 flex justify-center"
+                    className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 lg:mb-4 flex justify-center"
                   >
                     {region.image}
                   </motion.div>
-                  <h3 className="text-lg lg:text-xl font-heading font-semibold text-sage-800 mb-2 text-center leading-tight">
+                  <h3 className="text-sm sm:text-base lg:text-lg xl:text-xl font-heading font-semibold text-sage-800 mb-1 sm:mb-2 text-center leading-tight">
                     {region.name}
                   </h3>
-                  <div className="text-xs lg:text-sm font-medium text-sage-600 mb-2 lg:mb-3 text-center">
+                  <div className="text-xs sm:text-sm font-medium text-sage-600 mb-1 sm:mb-2 lg:mb-3 text-center">
                     {region.country}
                   </div>
                   <div className="flex-grow flex items-center">
-                    <p className="text-sage-700 leading-relaxed text-sm lg:text-base w-full text-center">
+                    <p className="text-sage-700 leading-relaxed text-xs sm:text-sm lg:text-base w-full text-center">
                       {region.description}
                     </p>
                   </div>
@@ -385,13 +385,13 @@ export default function Index() {
         </motion.section>
 
         {/* Featured Products Preview */}
-        <section className="py-20 bg-background">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-sage-800 mb-4">
+        <section className="py-12 sm:py-16 lg:py-20 bg-background">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold text-sage-800 mb-3 sm:mb-4">
                 {t("featured.title", "Featured Blends")}
               </h2>
-              <p className="text-lg text-sage-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-sage-600 max-w-2xl mx-auto">
                 {t(
                   "featured.subtitle",
                   "Discover our most beloved tea collections, carefully crafted to bring you moments of tranquility and joy.",
@@ -399,7 +399,7 @@ export default function Index() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch">
               {(() => {
                 // Select 3 premium/luxury products with highest ratings
                 const premiumProducts = TEA_PRODUCTS.filter(
@@ -429,17 +429,17 @@ export default function Index() {
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
                       </div>
-                      <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-heading font-semibold text-sage-800 mb-2 text-center">
+                      <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                        <h3 className="text-lg sm:text-xl font-heading font-semibold text-sage-800 mb-2 text-center">
                           {product.nameEn}
                         </h3>
-                        <p className="text-sage-600 mb-4 flex-grow text-center">
+                        <p className="text-sage-600 mb-3 sm:mb-4 flex-grow text-center text-sm sm:text-base">
                           {product.brand} • {product.weight} •{" "}
                           {product.teaGrade}
                         </p>
-                        <div className="flex justify-between items-end mt-auto">
-                          <div className="flex flex-col">
-                            <span className="text-2xl font-semibold text-sage-800">
+                        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-auto">
+                          <div className="flex flex-col text-center sm:text-left">
+                            <span className="text-xl sm:text-2xl font-semibold text-sage-800">
                               {formatPrice(price)}
                             </span>
                             {originalPrice && (
@@ -448,7 +448,7 @@ export default function Index() {
                               </span>
                             )}
                           </div>
-                          <button className="bg-sage-600 hover:bg-sage-700 text-white px-6 py-2 rounded-full transition-colors">
+                          <button className="bg-sage-600 hover:bg-sage-700 text-white px-4 sm:px-6 py-2 rounded-full transition-colors text-sm sm:text-base w-full sm:w-auto">
                             {t("featured.add_to_cart", "Add to Cart")}
                           </button>
                         </div>
@@ -472,7 +472,7 @@ export default function Index() {
         </section>
 
         {/* Newsletter Signup - Enhanced with FOMO and value props */}
-        <section className="py-20 bg-sage-800 text-white relative overflow-hidden">
+        <section className="py-12 sm:py-16 lg:py-20 bg-sage-800 text-white relative overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-30">
             <div
@@ -484,12 +484,12 @@ export default function Index() {
 
           <div
             ref={newsletterAnimation.elementRef}
-            className={`relative max-w-5xl mx-auto px-4 text-center ${animationClasses.fadeInUp(newsletterAnimation.isVisible)}`}
+            className={`relative max-w-5xl mx-auto px-3 sm:px-4 text-center ${animationClasses.fadeInUp(newsletterAnimation.isVisible)}`}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold mb-3 sm:mb-4">
               {t("newsletter.title", "Join 10,000+ Tea Enthusiasts")}
             </h2>
-            <p className="text-xl text-sage-200 mb-8 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-sage-200 mb-6 sm:mb-8 max-w-3xl mx-auto">
               {t(
                 "newsletter.subtitle",
                 "Get exclusive access to new blends, brewing secrets, and special offers before anyone else.",
@@ -497,35 +497,35 @@ export default function Index() {
             </p>
 
             {/* Value propositions */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-3xl mx-auto">
-              <div className="flex items-center justify-center text-sage-200">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-3xl mx-auto">
+              <div className="flex items-center justify-center text-sage-200 text-sm sm:text-base">
                 {t("newsletter.benefit1", "🎁 20% off your first order")}
               </div>
-              <div className="flex items-center justify-center text-sage-200">
+              <div className="flex items-center justify-center text-sage-200 text-sm sm:text-base">
                 {t("newsletter.benefit2", "🍃 Early access to new blends")}
               </div>
-              <div className="flex items-center justify-center text-sage-200">
+              <div className="flex items-center justify-center text-sage-200 text-sm sm:text-base">
                 {t("newsletter.benefit3", "📚 Free brewing guides")}
               </div>
             </div>
 
             {/* Enhanced signup form */}
             <div className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4 mb-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
                 <input
                   type="email"
                   placeholder={t(
                     "newsletter.email_placeholder",
                     "Enter your email address",
                   )}
-                  className="flex-1 px-6 py-4 rounded-full text-sage-800 focus:outline-none focus:ring-2 focus:ring-forest-400 transition-all duration-300"
+                  className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full text-sage-800 focus:outline-none focus:ring-2 focus:ring-forest-400 transition-all duration-300 text-sm sm:text-base"
                 />
-                <button className="bg-forest-500 hover:bg-forest-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <button className="bg-forest-500 hover:bg-forest-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base">
                   {t("newsletter.subscribe", "Get Exclusive Access")}
                 </button>
               </div>
 
-              <p className="text-sm text-sage-300">
+              <p className="text-xs sm:text-sm text-sage-300">
                 {t(
                   "newsletter.no_spam",
                   "Premium content only. Unsubscribe anytime.",
