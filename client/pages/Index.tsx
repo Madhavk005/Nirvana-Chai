@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguageCurrency } from "../contexts/LanguageCurrencyContext";
-import { OptimizedImage, teaImages } from "../components/OptimizedImage";
 import {
   useSimpleAnimation,
   animationClasses,
@@ -166,11 +165,13 @@ export default function Index() {
         <section className="relative min-h-screen flex items-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
-            <OptimizedImage
-              src={teaImages.hero}
-              alt="Tea background"
+            <video
+              src="/vid/44575-439924989.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
-              aspectRatio="wide"
             />
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
@@ -178,7 +179,7 @@ export default function Index() {
           <div className="relative z-10 w-full max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-12 sm:py-16">
             <div
               ref={heroAnimation.elementRef}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center ${animationClasses.fadeInUp(heroAnimation.isVisible)}`}
+              className={`grid grid-cols-1 gap-8 sm:gap-12 lg:gap-16 items-center ${animationClasses.fadeInUp(heroAnimation.isVisible)}`}
             >
               {/* Left Content */}
               <div className="space-y-6 sm:space-y-8 text-white">
@@ -216,18 +217,7 @@ export default function Index() {
                 </div>
               </div>
 
-              {/* Right Content */}
-              <div className="relative mt-8 lg:mt-0">
-                <div className="relative group">
-                  <OptimizedImage
-                    src={teaImages.teaCup}
-                    alt="Premium tea cup"
-                    className="w-full h-64 sm:h-80 lg:h-96 xl:h-[500px] object-cover rounded-lg shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
-                    aspectRatio="portrait"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                </div>
-              </div>
+
             </div>
           </div>
         </section>
