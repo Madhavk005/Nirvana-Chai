@@ -7,16 +7,16 @@
 - [ ] Enhance mobile responsiveness
 - [x] Add search functionality to header
 - [x] Implement product quick view modal
-- [ ] Add recently viewed products section
+- [x] Add recently viewed products section
 
 ## Phase 2: User Experience Enhancements
-- [ ] Add wishlist persistence (localStorage)
-- [ ] Implement product comparison feature
+- [x] Add wishlist persistence (localStorage)
+- [x] Implement product comparison feature
 - [ ] Add advanced filtering (price range, ratings, etc.)
-- [ ] Enhance cart with mini-cart in header
-- [ ] Add product zoom functionality
+- [x] Enhance cart with mini-cart in header
+- [x] Add product zoom functionality
 - [ ] Implement infinite scroll for shop page
-- [ ] Add breadcrumb navigation
+- [x] Add breadcrumb navigation
 
 ## Phase 3: Design & Visual Improvements
 - [ ] Add dark mode toggle

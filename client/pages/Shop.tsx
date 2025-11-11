@@ -13,16 +13,18 @@ import {
   SlidersHorizontal,
   X,
   Filter,
+  GitCompare,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguageCurrency } from "../contexts/LanguageCurrencyContext";
-import { useCartStore, useWishlistStore } from "../stores/useStore";
+import { useCartStore, useWishlistStore, useComparisonStore, useIsInComparison } from "../stores/useStore";
 import { showToast } from "../components/Toast/ToastProvider";
 import { CurrencyUtility } from "../utils/currency";
 import { TEA_PRODUCTS } from "../data/teaProducts";
 import { ProductGridSkeleton } from "../components/SkeletonLoader";
 import { OptimizedImage } from "../components/OptimizedImage";
 import { ProductQuickViewModal } from "../components/ProductQuickViewModal";
+import { RecentlyViewedProducts } from "../components/RecentlyViewedProducts";
 
 export default function Shop() {
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ export default function Shop() {
     removeItem: removeFromWishlist,
     isInWishlist,
   } = useWishlistStore();
+  const { addItem: addToComparison } = useComparisonStore();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -515,6 +518,25 @@ export default function Shop() {
                             className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`}
                           />
                         </motion.button>
+                        <motion.button
+                          onClick={() => addToComparison(product.id)}
+                          className={`backdrop-blur-sm p-2 rounded-full transition-colors ${
+                            useIsInComparison(product.id)
+                              ? "bg-blue-500 text-white"
+                              : "bg-white/90 hover:bg-white text-gray-700"
+                          }`}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          title={
+                            currentLanguage.code === "ru"
+                              ? "Добавить к сравнению"
+                              : currentLanguage.code === "kz"
+                                ? "Салыстыруға қосу"
+                                : "Add to Compare"
+                          }
+                        >
+                          <GitCompare className="h-4 w-4" />
+                        </motion.button>
                       </div>
 
                       {/* Badges */}
@@ -657,6 +679,9 @@ export default function Shop() {
           </div>
         </div>
       </div>
+
+      {/* Recently Viewed Products */}
+      <RecentlyViewedProducts />
 
       {/* Quick View Modal */}
       <ProductQuickViewModal

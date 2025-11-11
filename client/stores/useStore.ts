@@ -60,6 +60,23 @@ interface WishlistStore {
   clearWishlist: () => void;
 }
 
+// Recently viewed store interface
+interface RecentlyViewedStore {
+  items: number[];
+  addItem: (productId: number) => void;
+  clearRecentlyViewed: () => void;
+}
+
+// Comparison store interface
+interface ComparisonStore {
+  items: number[];
+  addItem: (productId: number) => void;
+  removeItem: (productId: number) => void;
+  isInComparison: (productId: number) => boolean;
+  clearComparison: () => void;
+  getComparisonProducts: () => Product[];
+}
+
 // UI store interface
 interface UIStore {
   // Modal states
@@ -228,6 +245,78 @@ export const useWishlistStore = create<WishlistStore>()(
   ),
 );
 
+// Recently viewed store implementation
+export const useRecentlyViewedStore = create<RecentlyViewedStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+
+      addItem: (productId: number) => {
+        const items = get().items;
+        const filteredItems = items.filter((id) => id !== productId);
+        const newItems = [productId, ...filteredItems].slice(0, 10); // Keep only last 10 viewed
+        set({ items: newItems });
+      },
+
+      clearRecentlyViewed: () => {
+        set({ items: [] });
+      },
+    }),
+    {
+      name: "nirvana-recently-viewed",
+      version: 1,
+    },
+  ),
+);
+
+// Comparison store implementation
+export const useComparisonStore = create<ComparisonStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+
+      addItem: (productId: number) => {
+        const items = get().items;
+        if (!items.includes(productId) && items.length < 4) {
+          set({ items: [...items, productId] });
+          useUIStore
+            .getState()
+            .addNotification("success", "Added to comparison!");
+        } else if (items.length >= 4) {
+          useUIStore
+            .getState()
+            .addNotification("warning", "Maximum 4 products can be compared");
+        }
+      },
+
+      removeItem: (productId: number) => {
+        set({
+          items: get().items.filter((id) => id !== productId),
+        });
+        useUIStore.getState().addNotification("info", "Removed from comparison");
+      },
+
+      isInComparison: (productId: number) => {
+        return get().items.includes(productId);
+      },
+
+      clearComparison: () => {
+        set({ items: [] });
+        useUIStore.getState().addNotification("info", "Comparison cleared");
+      },
+
+      getComparisonProducts: () => {
+        // This will be implemented when we have access to TEA_PRODUCTS
+        return [];
+      },
+    }),
+    {
+      name: "nirvana-comparison",
+      version: 1,
+    },
+  ),
+);
+
 // UI store implementation
 export const useUIStore = create<UIStore>((set, get) => ({
   isSearchOpen: false,
@@ -288,3 +377,9 @@ export const useIsInCart = (productId: number) =>
   useCartStore((state) => state.getItemQuantity(productId) > 0);
 export const useIsInWishlist = (productId: number) =>
   useWishlistStore((state) => state.isInWishlist(productId));
+export const useIsInComparison = (productId: number) =>
+  useComparisonStore((state) => state.isInComparison(productId));
+export const useRecentlyViewedCount = () =>
+  useRecentlyViewedStore((state) => state.items.length);
+export const useComparisonCount = () =>
+  useComparisonStore((state) => state.items.length);

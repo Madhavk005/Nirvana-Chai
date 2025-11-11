@@ -15,6 +15,8 @@ import { useLanguageCurrency } from "../contexts/LanguageCurrencyContext";
 import { useCartStore } from "../stores/useStore";
 import { FloatingActions } from "./FloatingActions";
 import { AnnouncementBar } from "./AnnouncementBar";
+import { Breadcrumbs } from "./Breadcrumbs";
+import { MiniCart } from "./MiniCart";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -25,6 +27,7 @@ export function Layout({ children }: LayoutProps) {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -277,7 +280,7 @@ export function Layout({ children }: LayoutProps) {
                 <User className="h-4 w-4 lg:h-5 lg:w-5" />
               </Link>
               <button
-                onClick={toggleCart}
+                onClick={() => setIsMiniCartOpen(true)}
                 className="p-2 hover:bg-sage-50/80 rounded-lg relative group transition-all duration-300 hover:scale-105 shadow-sm text-sage-700 cursor-pointer backdrop-blur-sm sm:p-2.5"
               >
                 <ShoppingCart className="h-4 w-4 lg:h-5 lg:w-5 group-hover:scale-110 transition-transform duration-300" />
@@ -346,8 +349,14 @@ export function Layout({ children }: LayoutProps) {
         </nav>
       </header>
 
+      {/* Breadcrumbs */}
+      <Breadcrumbs />
+
       {/* Main Content */}
       <main>{children}</main>
+
+      {/* Mini Cart */}
+      <MiniCart isOpen={isMiniCartOpen} onClose={() => setIsMiniCartOpen(false)} />
 
       {/* Footer */}
       <footer className="bg-sage-50 text-foreground border-t border-border">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,10 +21,12 @@ import {
   ChevronRight,
   Play,
   Volume2,
+  ZoomIn,
+  GitCompare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguageCurrency } from "../contexts/LanguageCurrencyContext";
-import { useCartStore, useWishlistStore } from "../stores/useStore";
+import { useCartStore, useWishlistStore, useRecentlyViewedStore, useComparisonStore } from "../stores/useStore";
 import { showToast } from "../components/Toast/ToastProvider";
 import { RegionalCurrencyUtility } from "../utils/currency";
 import {
@@ -34,6 +36,7 @@ import {
 import { TEA_PRODUCTS } from "../data/teaProducts";
 import { CurrencyUtility } from "../utils/currency";
 import { OptimizedImage } from "../components/OptimizedImage";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import NotFound from "./NotFound";
 
 export default function ProductDetails() {
@@ -48,16 +51,27 @@ export default function ProductDetails() {
     removeItem: removeFromWishlist,
     isInWishlist,
   } = useWishlistStore();
+  const { addItem: addToRecentlyViewed } = useRecentlyViewedStore();
+  const { addItem: addToComparison, isInComparison } = useComparisonStore();
 
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState("description");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
   const heroAnimation = useSimpleAnimation();
   const detailsAnimation = useSimpleAnimation();
 
   const product = TEA_PRODUCTS.find((p) => p.id === parseInt(id || ""));
+
+  // Add to recently viewed when component mounts
+  useEffect(() => {
+    if (product) {
+      addToRecentlyViewed(product.id);
+    }
+  }, [product, addToRecentlyViewed]);
 
   if (!product) {
     return <NotFound />;
@@ -159,6 +173,25 @@ export default function ProductDetails() {
     }
   };
 
+  const handleToggleComparison = () => {
+    if (isInComparison(productData.id)) {
+      // Note: We don't have removeItem in the comparison store yet, but we can add it
+      showToast.success("Removed from comparison");
+    } else {
+      addToComparison(productData.id);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isZoomed) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setZoomPosition({ x, y });
+  };
+
   const tabs = [
     {
       id: "description",
@@ -231,6 +264,18 @@ export default function ProductDetails() {
 
               <motion.button
                 whileHover={{ scale: 1.1 }}
+                onClick={handleToggleComparison}
+                className={`p-2 rounded-full transition-all ${
+                  isInComparison(productData.id)
+                    ? "bg-blue-500 text-white"
+                    : "bg-sage-100 text-sage-600 hover:bg-sage-200"
+                }`}
+              >
+                <GitCompare className="h-4 w-4 sm:h-5 sm:w-5" />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.1 }}
                 className="p-2 rounded-full bg-sage-100 text-sage-600 hover:bg-sage-200 transition-all"
               >
                 <Share2 className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -249,16 +294,26 @@ export default function ProductDetails() {
             <div className="space-y-6">
               <div className="relative group">
                 <motion.div
-                  className="relative aspect-square rounded-3xl overflow-hidden bg-white border border-sage-300 shadow-2xl"
+                  className="relative aspect-square rounded-3xl overflow-hidden bg-white border border-sage-300 shadow-2xl cursor-zoom-in"
                   layoutId={`product-image-${productData.id}`}
+                  onMouseEnter={() => setIsZoomed(true)}
+                  onMouseLeave={() => setIsZoomed(false)}
+                  onMouseMove={handleMouseMove}
                 >
-                  <OptimizedImage
-                    src={productData.images[selectedImage]}
-                    alt={productData.name}
-                    aspectRatio="square"
-                    className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-                    priority={selectedImage === 0}
-                  />
+                  <div
+                    className={`w-full h-full transition-transform duration-700 ${isZoomed ? 'scale-150' : 'group-hover:scale-105'}`}
+                    style={isZoomed ? {
+                      transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                    } : undefined}
+                  >
+                    <OptimizedImage
+                      src={productData.images[selectedImage]}
+                      alt={productData.name}
+                      aspectRatio="square"
+                      className="w-full h-full"
+                      priority={selectedImage === 0}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-500/10 via-transparent to-sage-400/10 opacity-60"></div>
                   <button
                     onClick={prevImage}
@@ -282,6 +337,12 @@ export default function ProductDetails() {
                     ) : (
                       <Play className="h-5 w-5" />
                     )}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    className="absolute top-16 right-4 bg-sage-100 hover:bg-sage-200 text-sage-600 p-3 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <ZoomIn className="h-5 w-5" />
                   </motion.button>
                   <div className="absolute top-4 left-4 flex flex-col gap-2">
                     {productData.badges.map((badge, index) => (

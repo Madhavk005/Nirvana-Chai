@@ -7,6 +7,8 @@ import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ToastProvider } from "./components/Toast/ToastProvider";
 import { CartDrawer } from "./components/Cart/CartDrawer";
+import { MiniCart } from "./components/MiniCart";
+import { ProductComparison } from "./components/ProductComparison";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -67,6 +69,8 @@ const App = () => {
               onComplete={() => setIsLoading(false)}
             />
             <CartDrawer />
+            <MiniCart isOpen={false} onClose={() => {}} />
+            <ProductComparison />
             <BrowserRouter>
               <Layout>
                 <ErrorBoundary>
