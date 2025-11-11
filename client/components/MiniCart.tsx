@@ -86,13 +86,13 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col"
+            className="fixed right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-white shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 flex-shrink-0">
               <div className="flex items-center gap-2">
-                <ShoppingCart className="h-5 w-5 text-sage-600" />
-                <h2 className="text-lg font-semibold text-gray-900">
+                <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-sage-600" />
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
                   {getLocalizedText("cart")}
                 </h2>
                 {totalItems > 0 && (
@@ -103,18 +103,18 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
               </div>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
 
             {/* Cart Items */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <ShoppingCart className="h-16 w-16 text-gray-300 mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <ShoppingCart className="h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mb-4" />
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
                     {getLocalizedText("empty")}
                   </h3>
                   <p className="text-gray-500 text-sm">
@@ -122,7 +122,7 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {items.map((item) => (
                     <motion.div
                       key={item.id}
@@ -132,7 +132,7 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                       exit={{ opacity: 0, y: -20 }}
                       className="flex gap-3 p-3 bg-gray-50 rounded-lg"
                     >
-                      <div className="w-16 h-16 flex-shrink-0">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
                         <OptimizedImage
                           src={item.image}
                           alt={item.name}
@@ -142,10 +142,10 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-gray-900 truncate">
+                        <h4 className="font-medium text-gray-900 text-sm sm:text-base truncate">
                           {item.name}
                         </h4>
-                        <p className="text-sm text-gray-500 truncate">
+                        <p className="text-xs sm:text-sm text-gray-500 truncate">
                           {item.region}
                         </p>
                         <div className="flex items-center justify-between mt-2">
@@ -154,7 +154,7 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity - 1)
                               }
-                              className="p-1 hover:bg-gray-200 rounded transition-colors"
+                              className="p-1 hover:bg-gray-200 rounded transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center"
                             >
                               <Minus className="h-3 w-3" />
                             </button>
@@ -165,22 +165,22 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity + 1)
                               }
-                              className="p-1 hover:bg-gray-200 rounded transition-colors"
+                              className="p-1 hover:bg-gray-200 rounded transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center"
                             >
                               <Plus className="h-3 w-3" />
                             </button>
                           </div>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors"
+                            className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors min-h-[32px] min-w-[32px] flex items-center justify-center"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
 
-                      <div className="text-right">
-                        <div className="font-semibold text-gray-900">
+                      <div className="text-right flex-shrink-0">
+                        <div className="font-semibold text-gray-900 text-sm sm:text-base">
                           {util.format(item.price * item.quantity)}
                         </div>
                         {item.quantity > 1 && (
@@ -197,8 +197,8 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-gray-200 p-4 space-y-4">
-                <div className="flex justify-between items-center text-lg font-semibold">
+              <div className="border-t border-gray-200 p-4 sm:p-6 space-y-3 sm:space-y-4 flex-shrink-0">
+                <div className="flex justify-between items-center text-base sm:text-lg font-semibold">
                   <span>{getLocalizedText("total")}</span>
                   <span className="text-sage-700">
                     {util.format(totalPrice)}
@@ -209,11 +209,11 @@ export function MiniCart({ isOpen, onClose }: MiniCartProps) {
                   <Link
                     to="/cart"
                     onClick={onClose}
-                    className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 min-h-[48px] text-sm sm:text-base"
                   >
                     {getLocalizedText("view-cart")}
                   </Link>
-                  <button className="w-full bg-sage-600 hover:bg-sage-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
+                  <button className="w-full bg-sage-600 hover:bg-sage-700 text-white py-3 px-4 rounded-lg font-medium transition-colors min-h-[48px] text-sm sm:text-base">
                     {getLocalizedText("checkout")}
                   </button>
                 </div>

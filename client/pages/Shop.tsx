@@ -228,16 +228,16 @@ export default function Shop() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Clean Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 to-emerald-50 py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+      <section className="bg-gradient-to-br from-green-50 to-emerald-50 py-8 sm:py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             {currentLanguage.code === "ru"
               ? "Наш Магазин Чая"
               : currentLanguage.code === "kz"
                 ? "Біздің Шай Дүкені"
                 : "Our Tea Shop"}
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             {currentLanguage.code === "ru"
               ? "Откройте для себя нашу тщательно подобранную коллекцию премиум чая"
               : currentLanguage.code === "kz"
@@ -247,10 +247,10 @@ export default function Shop() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
           {/* Filters Sidebar */}
-          <div className="lg:w-64">
+          <div className="lg:w-64 xl:w-72">
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden mb-4">
               <button
@@ -466,7 +466,11 @@ export default function Shop() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className={`grid gap-4 sm:gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
+                className={`grid gap-4 sm:gap-6 ${
+                  viewMode === "grid"
+                    ? "grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4"
+                    : "grid-cols-1"
+                }`}
               >
                 {sortedProducts.map((product, index) => (
                   <motion.div
@@ -480,7 +484,7 @@ export default function Shop() {
                   >
                     {/* Product Image */}
                     <div
-                      className={`relative ${viewMode === "list" ? "w-48 flex-shrink-0" : "aspect-square"}`}
+                      className={`relative ${viewMode === "list" ? "w-32 sm:w-40 md:w-48 flex-shrink-0" : "aspect-square"}`}
                     >
                       <OptimizedImage
                         src={product.image}
@@ -559,10 +563,10 @@ export default function Shop() {
                       className={`p-3 sm:p-4 ${viewMode === "list" ? "flex-1 flex flex-col" : ""}`}
                     >
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 line-clamp-2">
                           {getLocalizedName(product)}
                         </h3>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-gray-600 mb-2 line-clamp-1">
                           {product.origin}
                         </p>
                         <p className="text-sm text-gray-500 mb-3 line-clamp-2">
@@ -619,7 +623,7 @@ export default function Shop() {
 
                         <motion.button
                           onClick={() => handleAddToCart(product)}
-                          className="bg-green-500 hover:bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
+                          className="bg-green-500 hover:bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium min-h-[44px]"
                           whileHover={{
                             scale: 1.05,
                             boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
@@ -632,11 +636,13 @@ export default function Shop() {
                           }}
                         >
                           <ShoppingCart className="h-4 w-4" />
-                          {currentLanguage.code === "ru"
-                            ? "В корзину"
-                            : currentLanguage.code === "kz"
-                              ? "Себетке"
-                              : "Add to Cart"}
+                          <span className="hidden sm:inline">
+                            {currentLanguage.code === "ru"
+                              ? "В корзину"
+                              : currentLanguage.code === "kz"
+                                ? "Себетке"
+                                : "Add to Cart"}
+                          </span>
                         </motion.button>
                       </div>
                     </div>
@@ -666,7 +672,7 @@ export default function Shop() {
                 </p>
                 <motion.button
                   onClick={clearFilters}
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg transition-colors text-sm sm:text-base"
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg transition-colors text-sm sm:text-base min-h-[44px]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
