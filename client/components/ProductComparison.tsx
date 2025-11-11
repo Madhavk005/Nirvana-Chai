@@ -103,6 +103,7 @@ export function ProductComparison() {
         brewTime: "3-5 min",
         caffeine: "Medium",
         tags: [product.teaGrade, product.leafSize],
+        weight: product.weight,
       },
       1,
     );

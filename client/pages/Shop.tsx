@@ -107,6 +107,7 @@ export default function Shop() {
           : "3-5 min",
         caffeine: "Medium",
         tags: [p.teaGrade, p.leafSize, p.weight].filter(Boolean),
+        weight: p.weight,
         origin: p.nameEn.toLowerCase().includes("kenyan")
           ? "Kenya"
           : p.nameEn.toLowerCase().includes("pakistani")
@@ -181,6 +182,7 @@ export default function Shop() {
         brewTime: product.brewTime,
         caffeine: product.caffeine,
         tags: product.tags,
+        weight: product.weight,
       },
       1,
     );

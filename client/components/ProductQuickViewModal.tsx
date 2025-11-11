@@ -39,6 +39,7 @@ interface Product {
   tags: string[];
   origin: string;
   altitude: string;
+  weight: string;
 }
 
 interface ProductQuickViewModalProps {
@@ -87,6 +88,7 @@ export function ProductQuickViewModal({
         brewTime: product.brewTime,
         caffeine: product.caffeine,
         tags: product.tags,
+        weight: product.weight,
       },
       quantity,
     );

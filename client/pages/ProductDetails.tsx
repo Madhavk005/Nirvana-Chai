@@ -151,6 +151,7 @@ export default function ProductDetails() {
         brewTime: productData.specifications.brewTime,
         caffeine: "Medium",
         tags: productData.badges,
+        weight: product.weight,
       },
       quantity,
     );
