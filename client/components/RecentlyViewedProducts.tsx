@@ -61,7 +61,7 @@ export function RecentlyViewedProducts() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
           {recentlyViewedProducts.map((product, index) => {
             if (!product) return null;
 
@@ -77,7 +77,7 @@ export function RecentlyViewedProducts() {
               >
                 <Link
                   to={`/product/${product.id}`}
-                  className="block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  className="block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 min-h-[44px] touch-manipulation"
                 >
                   <div className="aspect-square">
                     <OptimizedImage
@@ -87,8 +87,8 @@ export function RecentlyViewedProducts() {
                       className="w-full h-full group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="p-2 sm:p-3 md:p-4">
-                    <h3 className="font-medium text-gray-900 text-xs sm:text-sm md:text-base line-clamp-2 mb-1 leading-tight">
+                  <div className="p-2 sm:p-3 md:p-4 space-y-1 sm:space-y-2">
+                    <h3 className="font-medium text-gray-900 text-xs sm:text-sm md:text-base line-clamp-2 leading-tight min-h-[2.5rem] sm:min-h-[3rem]">
                       {currentLanguage.code === "ru" && product.nameRu
                         ? product.nameRu
                         : product.nameEn}

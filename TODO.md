@@ -32,13 +32,13 @@
 - [ ] Optimize cart item display
 
 ### 6. Modals and Overlays
-- [ ] ProductQuickViewModal.tsx - ensure proper mobile display
-- [ ] ProductComparison.tsx - fix modal sizing
-- [ ] MiniCart.tsx - optimize slide-out behavior
+- [x] ProductQuickViewModal.tsx - ensure proper mobile display
+- [x] ProductComparison.tsx - fix modal sizing
+- [x] MiniCart.tsx - optimize slide-out behavior
 
 ### 7. Recently Viewed (RecentlyViewedProducts.tsx)
-- [ ] Improve grid layout on mobile
-- [ ] Optimize card sizes
+ - [x] Improve grid layout on mobile
+ - [x] Optimize card sizes
 
 ### 8. General Improvements
 - [ ] Ensure all touch targets are 44px minimum

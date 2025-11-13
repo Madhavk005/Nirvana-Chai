@@ -147,7 +147,7 @@ export function ProductComparison() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="fixed inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[90vh] md:max-h-[85vh]"
+              className="fixed inset-2 sm:inset-4 md:inset-6 lg:inset-8 xl:inset-16 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh] md:max-h-[85vh]"
             >
               {/* Header */}
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200 flex-shrink-0">

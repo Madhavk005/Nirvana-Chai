@@ -144,7 +144,7 @@ export function ProductQuickViewModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-4 md:inset-8 lg:inset-16 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden max-h-[90vh] md:max-h-[85vh]"
+            className="fixed inset-2 sm:inset-4 md:inset-6 lg:inset-8 xl:inset-16 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden max-h-[95vh] sm:max-h-[90vh] md:max-h-[85vh]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col lg:flex-row h-full max-h-full">
